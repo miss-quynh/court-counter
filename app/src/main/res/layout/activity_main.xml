@@ -3,19 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/basketball_bg"
+        android:alpha="0.4"
         android:scaleType="centerCrop"
-        android:alpha="0.4"/>
+        android:src="@drawable/basketball_bg"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -28,85 +29,92 @@
                 android:layout_height="140dp"
                 android:layout_gravity="center"
                 android:paddingTop="16dp"
-                android:src="@drawable/cavs_logo"/>
+                android:src="@drawable/cavs_logo"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/team_a_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:paddingBottom="24dp"
-                android:textSize="60sp"
-                android:textColor="#000000"
                 android:fontFamily="sans-serif-medium"
-                android:text="0" />
+                android:paddingBottom="24dp"
+                android:text="0"
+                android:textColor="#000000"
+                android:textSize="60sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:layout_gravity="center"
-                android:orientation="horizontal" >
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:paddingBottom="8dp"
+                    android:background="@drawable/ball"
                     android:onClick="addThreeForTeamA"
-                    android:background="@drawable/ball" />
+                    android:paddingBottom="8dp"
+                    tools:ignore="ButtonStyle" />
 
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:paddingBottom="8dp"
+                    android:background="@drawable/ball"
                     android:onClick="addThreeForTeamA"
-                    android:background="@drawable/ball" />
+                    android:paddingBottom="8dp"
+                    tools:ignore="ButtonStyle" />
 
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:paddingBottom="8dp"
+                    android:background="@drawable/ball"
                     android:onClick="addThreeForTeamA"
-                    android:background="@drawable/ball" />
+                    android:paddingBottom="8dp"
+                    tools:ignore="ButtonStyle" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:layout_gravity="center"
-                android:orientation="horizontal" >
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:paddingBottom="8dp"
+                    android:background="@drawable/ball"
                     android:onClick="addTwoForTeamA"
-                    android:background="@drawable/ball" />
+                    android:paddingBottom="8dp"
+                    tools:ignore="ButtonStyle" />
 
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:paddingBottom="8dp"
+                    android:background="@drawable/ball"
                     android:onClick="addTwoForTeamA"
-                    android:background="@drawable/ball" />
+                    android:paddingBottom="8dp"
+                    tools:ignore="ButtonStyle" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:layout_gravity="center"
-                android:orientation="horizontal" >
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:paddingBottom="8dp"
+                    android:background="@drawable/ball"
                     android:onClick="addOneForTeamA"
-                    android:background="@drawable/ball" />
+                    android:paddingBottom="8dp"
+                    tools:ignore="ButtonStyle" />
 
             </LinearLayout>
 
@@ -116,7 +124,7 @@
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_marginTop="16dp"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -129,85 +137,91 @@
                 android:layout_height="140dp"
                 android:layout_gravity="center"
                 android:paddingTop="16dp"
-                android:src="@drawable/gsw_logo"/>
+                android:src="@drawable/gsw_logo" />
 
             <TextView
                 android:id="@+id/team_b_score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
                 android:gravity="center_horizontal"
                 android:paddingBottom="24dp"
-                android:textSize="60sp"
+                android:text="0"
                 android:textColor="#000000"
-                android:fontFamily="sans-serif-medium"
-                android:text="0" />
+                android:textSize="60sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:layout_gravity="center"
-                android:orientation="horizontal" >
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:paddingBottom="8dp"
+                    android:background="@drawable/ball"
                     android:onClick="addThreeForTeamB"
-                    android:background="@drawable/ball" />
+                    android:paddingBottom="8dp"
+                    tools:ignore="ButtonStyle" />
 
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:paddingBottom="8dp"
+                    android:background="@drawable/ball"
                     android:onClick="addThreeForTeamB"
-                    android:background="@drawable/ball" />
+                    android:paddingBottom="8dp"
+                    tools:ignore="ButtonStyle" />
 
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:paddingBottom="8dp"
+                    android:background="@drawable/ball"
                     android:onClick="addThreeForTeamB"
-                    android:background="@drawable/ball" />
+                    android:paddingBottom="8dp"
+                    tools:ignore="ButtonStyle" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:layout_gravity="center"
-                android:orientation="horizontal" >
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:paddingBottom="8dp"
+                    android:background="@drawable/ball"
                     android:onClick="addTwoForTeamB"
-                    android:background="@drawable/ball" />
+                    android:paddingBottom="8dp"
+                    tools:ignore="ButtonStyle" />
 
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:paddingBottom="8dp"
+                    android:background="@drawable/ball"
                     android:onClick="addTwoForTeamB"
-                    android:background="@drawable/ball" />
+                    android:paddingBottom="8dp"
+                    tools:ignore="ButtonStyle" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_weight="1"
                 android:layout_gravity="center"
-                android:orientation="horizontal" >
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:paddingBottom="8dp"
+                    android:background="@drawable/ball"
                     android:onClick="addOneForTeamB"
-                    android:background="@drawable/ball" />
+                    android:paddingBottom="8dp"
+                    tools:ignore="ButtonStyle" />
 
             </LinearLayout>
 
