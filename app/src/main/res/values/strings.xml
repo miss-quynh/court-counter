@@ -1,3 +1,7 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">CourtCounter</string>
+
+    <!-- Pun header of app [CHAR LIMIT=NONE] -->
+    <string name="pun_header">Don\'t be the rebound, be the 3-pointer from half court</string>
+
 </resources>
