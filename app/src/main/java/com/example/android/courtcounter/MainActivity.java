@@ -1,11 +1,28 @@
 package com.example.android.courtcounter;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
+
+    EditText editText;
+
+    Button button_start_pause;
+
+    Button button_reset;
+
+    TextView text_view_countdown;
+
+    CountDownTimer count_down_timer;
+
+    boolean timer_running;
 
     // Tracks the score for Team A
     int scoreTeamA = 0;
@@ -17,6 +34,89 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        editText = (EditText) findViewById(R.id.editText);
+
+        button_start_pause = (Button) findViewById(R.id.button_start_pause);
+
+        button_reset = (Button) findViewById(R.id.button_reset);
+
+        text_view_countdown = (TextView) findViewById(R.id.text_view_countdown);
+
+        button_start_pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = editText.getText().toString();
+                if (timer_running) {
+                    pauseTimer();
+                } else {
+                    startTimer();
+                }
+
+            }
+        });
+
+        button_reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                resetTimer();
+            }
+        });
+
+    }
+
+    /**
+     * Starts the countdown timer.
+     */
+    public void startTimer() {
+        String text = editText.getText().toString();
+        if (!text.equalsIgnoreCase("")) {
+            int minutes = Integer.valueOf(text);
+            count_down_timer = new CountDownTimer(minutes * 1000, 1000) {
+                @Override
+                public void onTick(long millis) {
+                    int minutes = (int) (millis / 1000) / 60;
+                    int seconds = (int) (millis / 1000) % 60;
+
+                    String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+                    text_view_countdown.setText(timeLeftFormatted);
+                }
+
+                @Override
+                public void onFinish() {
+                    timer_running = false;
+                    button_start_pause.setText("Start");
+                    button_start_pause.setVisibility(View.INVISIBLE);
+                    button_reset.setVisibility(View.VISIBLE);
+                    text_view_countdown.setText("Finished");
+                }
+            }.start();
+        }
+
+        timer_running = true;
+        button_start_pause.setText("Pause");
+        button_reset.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Pauses the countdown timer if timer is currently running.
+     */
+    public void pauseTimer() {
+        count_down_timer.cancel();
+        timer_running = false;
+        button_start_pause.setText("Start");
+        button_reset.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Resets the countdown timer.
+     */
+    public void resetTimer() {
+        editText.setText("");
+        text_view_countdown.setText("");
+        timer_running = false;
+        button_reset.setVisibility(View.INVISIBLE);
+        button_start_pause.setVisibility(View.VISIBLE);
     }
 
 //    @Override
