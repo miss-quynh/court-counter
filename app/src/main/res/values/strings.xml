@@ -4,4 +4,13 @@
     <!-- Pun header of app [CHAR LIMIT=NONE] -->
     <string name="pun_header">Don\'t be the rebound, be the 3-pointer from half court</string>
 
+    <!-- 3-pointer header [CHAR LIMIT=20] -->
+    <string name="three_points">3-pointer</string>
+
+    <!-- 2-pointer header [CHAR LIMIT=20] -->
+    <string name="two_points">2</string>
+
+    <!-- 1-pointer header [CHAR LIMIT=20] -->
+    <string name="one_point">1</string>
+
 </resources>
