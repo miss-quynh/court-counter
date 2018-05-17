@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <include layout="@layout/team_A"/>
+            <include layout="@layout/team_a"/>
 
             <View
                 android:layout_width="1dp"
