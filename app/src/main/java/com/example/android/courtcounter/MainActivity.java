@@ -12,7 +12,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText editText;
+    EditText edit_text_input;
 
     Button button_start_pause;
 
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        editText = (EditText) findViewById(R.id.editText);
+        edit_text_input = (EditText) findViewById(R.id.edit_text_input);
 
         button_start_pause = (Button) findViewById(R.id.button_start_pause);
 
@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
         button_start_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String text = editText.getText().toString();
                 if (timer_running) {
                     pauseTimer();
                 } else {
@@ -69,10 +68,13 @@ public class MainActivity extends AppCompatActivity {
      * Starts the countdown timer.
      */
     public void startTimer() {
-        String text = editText.getText().toString();
+        String text = edit_text_input.getText().toString();
         if (!text.equalsIgnoreCase("")) {
             int minutes = Integer.valueOf(text);
-            count_down_timer = new CountDownTimer(minutes * 1000, 1000) {
+            if (minutes > 60) {
+                minutes = 60;
+            }
+            count_down_timer = new CountDownTimer(minutes * 60000, 1000) {
                 @Override
                 public void onTick(long millis) {
                     int minutes = (int) (millis / 1000) / 60;
@@ -112,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
      * Resets the countdown timer.
      */
     public void resetTimer() {
-        editText.setText("");
+        edit_text_input.setText("");
         text_view_countdown.setText("");
         timer_running = false;
         button_reset.setVisibility(View.INVISIBLE);
@@ -142,26 +144,10 @@ public class MainActivity extends AppCompatActivity {
 //    }
 
     /**
-     * Increase the score for Team A by 1 point.
+     * Increase the score for Team A by the appropriate points.
      */
-    public void addOneForTeamA(View v) {
-        scoreTeamA += 1;
-        displayForTeamA(scoreTeamA);
-    }
-
-    /**
-     * Increase the score for Team A by 2 points.
-     */
-    public void addTwoForTeamA(View v) {
-        scoreTeamA += 2;
-        displayForTeamA(scoreTeamA);
-    }
-
-    /**
-     * Increase the score for Team A by 3 points.
-     */
-    public void addThreeForTeamA(View v) {
-        scoreTeamA += 3;
+    public void addScoreForTeamA(View v) {
+        scoreTeamA += Integer.parseInt(v.getTag().toString());
         displayForTeamA(scoreTeamA);
     }
 
@@ -176,24 +162,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Increase the score for Team B by 1 point.
      */
-    public void addOneForTeamB(View v) {
-        scoreTeamB += 1;
-        displayForTeamB(scoreTeamB);
-    }
-
-    /**
-     * Increase the score for Team B by 2 points.
-     */
-    public void addTwoForTeamB(View v) {
-        scoreTeamB += 2;
-        displayForTeamB(scoreTeamB);
-    }
-
-    /**
-     * Increase the score for Team B by 3 points.
-     */
-    public void addThreeForTeamB(View v) {
-        scoreTeamB += 3;
+    public void addScoreForTeamB(View v) {
+        scoreTeamB += Integer.parseInt(v.getTag().toString());
         displayForTeamB(scoreTeamB);
     }
 
@@ -214,5 +184,6 @@ public class MainActivity extends AppCompatActivity {
         displayForTeamA(scoreTeamA);
         displayForTeamB(scoreTeamB);
     }
+
 
 }

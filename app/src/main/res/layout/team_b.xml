@@ -39,24 +39,27 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/ball"
-                android:onClick="addThreeForTeamB"
+                android:onClick="addScoreForTeamB"
                 android:paddingBottom="8dp"
+                android:tag="3"
                 tools:ignore="ButtonStyle" />
 
             <Button
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/ball"
-                android:onClick="addThreeForTeamB"
+                android:onClick="addScoreForTeamB"
                 android:paddingBottom="8dp"
+                android:tag="3"
                 tools:ignore="ButtonStyle" />
 
             <Button
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/ball"
-                android:onClick="addThreeForTeamB"
+                android:onClick="addScoreForTeamB"
                 android:paddingBottom="8dp"
+                android:tag="3"
                 tools:ignore="ButtonStyle" />
 
         </LinearLayout>
@@ -88,16 +91,18 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/ball"
-                android:onClick="addTwoForTeamB"
+                android:onClick="addScoreForTeamB"
                 android:paddingBottom="8dp"
+                android:tag="2"
                 tools:ignore="ButtonStyle" />
 
             <Button
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/ball"
-                android:onClick="addTwoForTeamB"
+                android:onClick="addScoreForTeamB"
                 android:paddingBottom="8dp"
+                android:tag="2"
                 tools:ignore="ButtonStyle" />
 
         </LinearLayout>
@@ -129,8 +134,9 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/ball"
-                android:onClick="addOneForTeamB"
+                android:onClick="addScoreForTeamB"
                 android:paddingBottom="8dp"
+                android:tag="1"
                 tools:ignore="ButtonStyle" />
 
         </LinearLayout>

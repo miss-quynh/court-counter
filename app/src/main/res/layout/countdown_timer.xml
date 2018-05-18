@@ -9,10 +9,11 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
+        android:inputType="number"
         android:ems="10"
-        android:hint="minutes"
-        android:id="@+id/editText"/>
+        android:maxLength="4"
+        android:hint="minutes (max 60)"
+        android:id="@+id/edit_text_input"/>
 
     <Button
         android:layout_width="match_parent"
