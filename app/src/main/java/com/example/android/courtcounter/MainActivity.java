@@ -7,18 +7,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText edit_text_input;
-    Button button_start_pause;
+    Button button_start_pause_resume;
     Button button_reset;
     TextView text_view_countdown;
     CountDownTimer count_down_timer;
 
     boolean timer_running;
+    boolean timer_started = false;
 
     long time_left;
     long end_time;
@@ -36,19 +40,26 @@ public class MainActivity extends AppCompatActivity {
 
         edit_text_input = (EditText) findViewById(R.id.edit_text_input);
 
-        button_start_pause = (Button) findViewById(R.id.button_start_pause);
+        button_start_pause_resume = (Button) findViewById(R.id.button_start_pause_resume);
 
         button_reset = (Button) findViewById(R.id.button_reset);
 
         text_view_countdown = (TextView) findViewById(R.id.text_view_countdown);
 
-        button_start_pause.setOnClickListener(new View.OnClickListener() {
+        button_start_pause_resume.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (timer_running) {
-                    pauseTimer();
-                } else {
-                    startTimer();
+                switch(button_start_pause_resume.getText().toString()) {
+                    case "Start":
+                    default:
+                        startTimer();
+                        break;
+                    case "Pause":
+                        pauseTimer();
+                        break;
+                    case "Resume":
+                        resumeTimer();
+                        break;
                 }
 
             }
@@ -58,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 resetTimer();
+                timer_started = false;
             }
         });
 
@@ -83,17 +95,21 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onFinish() {
                     timer_running = false;
-                    button_start_pause.setText("Start");
-                    button_start_pause.setVisibility(View.INVISIBLE);
+                    timer_started = false;
+                    button_start_pause_resume.setText("Start");
+                    button_start_pause_resume.setVisibility(View.INVISIBLE);
                     button_reset.setVisibility(View.VISIBLE);
                     text_view_countdown.setText("Finished");
+                    displayWinner();
                 }
             }.start();
-        }
 
-        timer_running = true;
-        button_start_pause.setText("Pause");
-        button_reset.setVisibility(View.VISIBLE);
+            end_time = System.currentTimeMillis() + (minutes * 60000);
+            timer_running = true;
+            timer_started = true;
+            button_start_pause_resume.setText("Pause");
+            button_reset.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
@@ -102,7 +118,36 @@ public class MainActivity extends AppCompatActivity {
     public void pauseTimer() {
         count_down_timer.cancel();
         timer_running = false;
-        button_start_pause.setText("Start");
+        button_start_pause_resume.setText("Resume");
+        button_reset.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Resumes the countdown timer if timer is currently running and paused.
+     */
+    public void resumeTimer() {
+        count_down_timer = new CountDownTimer(time_left, 1000) {
+            @Override
+            public void onTick(long millis) {
+                time_left = millis;
+                updateCountDownTimer();
+            }
+
+            @Override
+            public void onFinish() {
+                timer_running = false;
+                timer_started = false;
+                button_start_pause_resume.setText("Start");
+                button_start_pause_resume.setVisibility(View.INVISIBLE);
+                button_reset.setVisibility(View.VISIBLE);
+                text_view_countdown.setText("Finished");
+                displayWinner();
+            }
+        }.start();
+
+        end_time = System.currentTimeMillis() + time_left;
+        timer_running = true;
+        button_start_pause_resume.setText("Pause");
         button_reset.setVisibility(View.VISIBLE);
     }
 
@@ -110,11 +155,13 @@ public class MainActivity extends AppCompatActivity {
      * Resets the countdown timer.
      */
     public void resetTimer() {
+        count_down_timer.cancel();
         edit_text_input.setText("");
         text_view_countdown.setText("");
         timer_running = false;
+        button_start_pause_resume.setText("Start");
         button_reset.setVisibility(View.INVISIBLE);
-        button_start_pause.setVisibility(View.VISIBLE);
+        button_start_pause_resume.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -126,6 +173,27 @@ public class MainActivity extends AppCompatActivity {
 
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
         text_view_countdown.setText(timeLeftFormatted);
+    }
+
+    /**
+     * Updates the timer buttons.
+     */
+    public void updateButtons() {
+        if (timer_running) {
+            button_start_pause_resume.setText("Pause");
+        } else {
+            if (timer_started) {
+                button_start_pause_resume.setText("Resume");
+                button_reset.setVisibility(View.VISIBLE);
+            }
+            else {
+                button_start_pause_resume.setText("Start");
+            }
+
+            if (time_left < 1000) {
+                button_start_pause_resume.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 
 //    @Override
@@ -192,11 +260,27 @@ public class MainActivity extends AppCompatActivity {
         displayForTeamB(scoreTeamB);
     }
 
+    public void displayWinner() {
+        String text = "";
+
+        if (scoreTeamA > scoreTeamB) {
+            text = "Team A wins!";
+        } else if (scoreTeamB > scoreTeamA) {
+            text = "Team B wins!";
+        } else {
+            text = "It is a tie!";
+        }
+
+        Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putLong("timeLeft", time_left);
         outState.putBoolean("timerRunning", timer_running);
+        outState.putBoolean("timerStarted", timer_started);
         outState.putLong("endTime", end_time);
         outState.putInt("scoreForTeamA", scoreTeamA);
         outState.putInt("scoreForTeamB", scoreTeamB);
@@ -208,7 +292,22 @@ public class MainActivity extends AppCompatActivity {
 
         time_left = savedInstanceState.getLong("timeLeft");
         timer_running = savedInstanceState.getBoolean("timerRunning");
+        timer_started = savedInstanceState.getBoolean("timerStarted");
+        scoreTeamA = savedInstanceState.getInt("scoreForTeamA");
+        scoreTeamB = savedInstanceState.getInt("scoreForTeamB");
+        updateCountDownTimer();
+        updateButtons();
+        displayForTeamA(scoreTeamA);
+        displayForTeamB(scoreTeamB);
+
+        if (timer_started) {
+
+        }
+
+        if (timer_running) {
+            end_time = savedInstanceState.getLong("endTime");
+            time_left = end_time - System.currentTimeMillis();
+            resumeTimer();
+        }
     }
-
-
 }
