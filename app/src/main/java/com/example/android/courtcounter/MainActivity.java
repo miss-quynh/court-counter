@@ -13,16 +13,15 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     EditText edit_text_input;
-
     Button button_start_pause;
-
     Button button_reset;
-
     TextView text_view_countdown;
-
     CountDownTimer count_down_timer;
 
     boolean timer_running;
+
+    long time_left;
+    long end_time;
 
     // Tracks the score for Team A
     int scoreTeamA = 0;
@@ -77,11 +76,8 @@ public class MainActivity extends AppCompatActivity {
             count_down_timer = new CountDownTimer(minutes * 60000, 1000) {
                 @Override
                 public void onTick(long millis) {
-                    int minutes = (int) (millis / 1000) / 60;
-                    int seconds = (int) (millis / 1000) % 60;
-
-                    String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
-                    text_view_countdown.setText(timeLeftFormatted);
+                    time_left = millis;
+                    updateCountDownTimer();
                 }
 
                 @Override
@@ -119,6 +115,17 @@ public class MainActivity extends AppCompatActivity {
         timer_running = false;
         button_reset.setVisibility(View.INVISIBLE);
         button_start_pause.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Updates the count down timer text.
+     */
+    public void updateCountDownTimer() {
+        int minutes = (int) (time_left / 1000) / 60;
+        int seconds = (int) (time_left / 1000) % 60;
+
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        text_view_countdown.setText(timeLeftFormatted);
     }
 
 //    @Override
@@ -160,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Increase the score for Team B by 1 point.
+     * Increase the score for Team B by the appropriate points.
      */
     public void addScoreForTeamB(View v) {
         scoreTeamB += Integer.parseInt(v.getTag().toString());
@@ -183,6 +190,24 @@ public class MainActivity extends AppCompatActivity {
         scoreTeamB = 0;
         displayForTeamA(scoreTeamA);
         displayForTeamB(scoreTeamB);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong("timeLeft", time_left);
+        outState.putBoolean("timerRunning", timer_running);
+        outState.putLong("endTime", end_time);
+        outState.putInt("scoreForTeamA", scoreTeamA);
+        outState.putInt("scoreForTeamB", scoreTeamB);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        time_left = savedInstanceState.getLong("timeLeft");
+        timer_running = savedInstanceState.getBoolean("timerRunning");
     }
 
 
