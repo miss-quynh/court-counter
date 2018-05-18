@@ -38,7 +38,7 @@
             android:layout_marginBottom="32dp"
             android:layout_marginTop="32dp"
             android:onClick="resetAllScores"
-            android:text="Reset"
+            android:text="@string/game_reset_button"
             android:textAllCaps="true" />
 
         <TextView

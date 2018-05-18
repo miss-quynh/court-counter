@@ -12,21 +12,21 @@
         android:inputType="number"
         android:ems="10"
         android:maxLength="4"
-        android:hint="minutes (max 60)"
+        android:hint="@string/edit_text_input"
         android:id="@+id/edit_text_input"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Start"
+        android:text="@string/timer_start_button"
         android:id="@+id/button_start_pause_resume"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Reset"
+        android:text="@string/timer_reset_button"
         android:id="@+id/button_reset"
         android:visibility="invisible"
         tools:visibility="visible"/>
@@ -37,7 +37,7 @@
         android:layout_marginTop="10dp"
         android:text=""
         android:gravity="center"
-        android:textSize="32sp"
+        android:textSize="35sp"
         android:id="@+id/text_view_countdown"/>
 
 </LinearLayout>
