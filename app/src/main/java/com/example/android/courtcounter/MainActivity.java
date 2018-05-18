@@ -264,9 +264,9 @@ public class MainActivity extends AppCompatActivity {
         String text = "";
 
         if (scoreTeamA > scoreTeamB) {
-            text = "Team A wins!";
+            text = "The Cavaliers wins!";
         } else if (scoreTeamB > scoreTeamA) {
-            text = "Team B wins!";
+            text = "The Warriors wins!";
         } else {
             text = "It is a tie!";
         }
